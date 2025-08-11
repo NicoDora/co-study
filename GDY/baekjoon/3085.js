@@ -3,9 +3,6 @@ const filePath =
   process.platform === 'linux' ? '/dev/stdin' : 'GDY/baekjoon/input.txt';
 const input = fs.readFileSync(filePath, 'utf8').trim().split('\n');
 
-const directionX = [1, -1];
-const directionY = [1, -1];
-
 const N = Number(input[0]);
 const board = createBoard(N, input);
 
@@ -38,24 +35,17 @@ function createBoard(N, candies) {
   return board;
 }
 
-function getDifferentCandyXY(currentX, currentY) {
-  const currentCandy = board[currentX][currentY];
+function getDifferentCandyXY(x, y) {
+  const cur = board[x][y];
   const res = [];
 
-  for (let k = 0; k < 2; k++) {
-    const nextX = currentX + directionX[k];
-    if (nextX < 0 || nextX >= N) continue;
-    if (currentCandy !== board[nextX][currentY]) {
-      res.push({ x: nextX, y: currentY });
-    }
+  // 아래
+  if (x + 1 < N && cur !== board[x + 1][y]) {
+    res.push({ x: x + 1, y });
   }
-
-  for (let k = 0; k < 2; k++) {
-    const nextY = currentY + directionY[k];
-    if (nextY < 0 || nextY >= N) continue;
-    if (currentCandy !== board[currentX][nextY]) {
-      res.push({ x: currentX, y: nextY });
-    }
+  // 오른쪽
+  if (y + 1 < N && cur !== board[x][y + 1]) {
+    res.push({ x, y: y + 1 });
   }
 
   return res;
