@@ -1,6 +1,6 @@
 const fs = require("fs");
 const filePath =
-  process.platform === "linux" ? "/dev/stdin" : "LJJ/beakjoon/input.txt";
+  process.platform === "linux" ? "/dev/stdin" : "LJJ/baekjoon/input.txt";
 const input = fs.readFileSync(filePath, "utf8").trim().toString().split("\n");
 
 //그래프 알고리즘을 활용한 최대 개수 구하는 문제
