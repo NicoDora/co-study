@@ -94,7 +94,7 @@ for (const [x, y] of coordinate) {
 
 for (let i = 0; i < N; i++) {
   for (let j = 0; j < M; j++) {
-    if (map[i][j]) max = Math.max(max, bfs(i, j));
+    if (map[i][j] && !visited[i][j]) max = Math.max(max, bfs(i, j));
   }
 }
 
