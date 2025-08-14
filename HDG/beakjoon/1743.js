@@ -37,19 +37,17 @@ function solve({ N, M, K, points }) {
   points.map(([r, c]) => {
     const i = r - 1;
     const j = c - 1;
+
     board[i][j] = "#";
   });
 
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < M; j++) {
-      let next = look(i, j);
+  points.map(([r, c]) => {
+    const i = r - 1;
+    const j = c - 1;
 
-      if (next) {
-        allLook(i, j);
-        num = 0;
-      }
-    }
-  }
+    allLook(i, j);
+    num = 0;
+  });
 
   function look(i, j) {
     if (board[i][j] === "#") {
