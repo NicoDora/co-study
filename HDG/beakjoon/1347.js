@@ -44,6 +44,8 @@ function solve({ N, commends }) {
       this.maxX = Math.max(this.maxX, hongjun.x);
       this.minY = Math.min(this.minY, hongjun.y);
       this.maxY = Math.max(this.maxY, hongjun.y);
+
+      this.board[hongjun.y][hongjun.x] = ".";
     },
   };
 
@@ -93,7 +95,6 @@ function solve({ N, commends }) {
         this.x++;
       }
 
-      miro.board[this.y][this.x] = ".";
       miro.updateBoard(this);
     },
   };
