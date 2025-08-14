@@ -3,7 +3,7 @@ const filePath =
   process.platform === "linux" ? "/dev/stdin" : "LJJ/baekjoon/input.txt";
 const input = fs.readFileSync(filePath, "utf8").trim().toString().split("\n");
 
-// 간선간 길이를 파악해서, 가장 많은 길이를 가진 요소들을 출력하는 문제
+// 간선간 길이를 파악해서, 가장 많은 길이를 가진 요소들을 출력하는 문제 dPDP
 
 function bfs(x) {
   const queue = [];
