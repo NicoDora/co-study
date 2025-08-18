@@ -1,6 +1,7 @@
-5
-YCPZY
-CYZZP
-CCPPP
-YCYZC
-CPPZZ
+6 6
+...#..
+.##v#.
+#v.#.#
+#.k#.#
+.###.#
+...###

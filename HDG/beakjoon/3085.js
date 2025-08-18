@@ -7,7 +7,7 @@ function template() {
   const filePath =
     process.platform === "linux"
       ? "/dev/stdin"
-      : path.join(__dirname, "beakjoon", "input.txt");
+      : path.join(__dirname, "input.txt");
   const raw = fs.readFileSync(filePath, "utf8").trim();
 
   const input = parseInput(raw);
