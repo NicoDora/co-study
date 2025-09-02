@@ -1,70 +1,81 @@
 const fs = require('fs');
 const filePath = process.platform === 'linux' ? '/dev/stdin' : 'LJJ/baekjoon/input.txt';
-const input = fs.readFileSync(filePath, 'utf8').trim().toString().split('\n');
+const input = fs.readFileSync(filePath, 'utf8').trim().split(/\s+/).map(Number);
 
-// 우선순위 큐
+let idx = 0;
+const N = input[idx++],
+    M = input[idx++];
+const a = input.slice(idx, idx + M);
+idx += M;
+const b = input.slice(idx, idx + M);
+
+const T = 24 * N;
+let scores = [...a];
+
+// 우선순위 큐 (최대 힙)
 class PriorityQueue {
     constructor() {
-        this.queue = [];
+        this.heap = [];
     }
-
+    isEmpty() {
+        return this.heap.length === 0;
+    }
     size() {
-        return this.queue.length;
+        return this.heap.length;
     }
-
-    enqueue(target) {
-        for (let i = 0; i < this.size(); i++) {
-            // 보인 보다 큰 값이 있다면 그 앞에 삽입
-            if (this.queue[i][0] < target[0]) {
-                this.queue.splice(i, 0, target);
-                return;
-            }
-        }
-        this.queue.push(target);
+    enqueue(val) {
+        this.heap.push(val);
+        this._up(this.heap.length - 1);
     }
-
     dequeue() {
-        return this.queue.shift();
+        if (this.isEmpty()) return null;
+        const top = this.heap[0];
+        const last = this.heap.pop();
+        if (!this.isEmpty()) {
+            this.heap[0] = last;
+            this._down(0);
+        }
+        return top;
     }
-
-    front() {
-        return this.queue[0];
+    _up(i) {
+        const node = this.heap[i];
+        while (i > 0) {
+            const p = Math.floor((i - 1) / 2);
+            if (this.heap[p][0] >= node[0]) break;
+            this.heap[i] = this.heap[p];
+            i = p;
+        }
+        this.heap[i] = node;
     }
-
-    clear() {
-        this.queue = [];
+    _down(i) {
+        const n = this.heap.length;
+        const node = this.heap[i];
+        while (true) {
+            let left = i * 2 + 1,
+                right = i * 2 + 2;
+            let largest = i;
+            if (left < n && this.heap[left][0] > this.heap[largest][0]) largest = left;
+            if (right < n && this.heap[right][0] > this.heap[largest][0]) largest = right;
+            if (largest === i) break;
+            [this.heap[i], this.heap[largest]] = [this.heap[largest], this.heap[i]];
+            i = largest;
+        }
     }
 }
 
-const [N, M] = input[0].split(' ').map(Number);
-const scores = input[1].split(' ').map(Number);
-const studyTimes = input[2].split(' ').map(Number);
-
-const time = 24 * N;
-let total = scores.reduce((sum, v) => sum + v, 0);
-
-const priorityQueue = new PriorityQueue();
-
+const pq = new PriorityQueue();
 for (let i = 0; i < M; i++) {
-    if (scores[i] < 100) {
-        priorityQueue.enqueue([studyTimes[i], i, scores[i]]);
-    }
-}
-priorityQueue.queue.sort((a, b) => b[0] - a[0]);
-
-for (let i = 0; i < time; i++) {
-    if (priorityQueue.size() === 0) break;
-    let [time, idx, score] = priorityQueue.dequeue();
-
-    if (score < 100) {
-        const add = Math.min(time, 100 - score);
-        score += add;
-        total += add;
-    }
-
-    if (score < 100) {
-        priorityQueue.enqueue([time, idx, score]);
-    }
+    let gain = Math.min(b[i], 100 - scores[i]);
+    if (gain > 0) pq.enqueue([gain, i]);
 }
 
-console.log(total);
+for (let t = 0; t < T; t++) {
+    if (pq.isEmpty()) break;
+    let [gain, i] = pq.dequeue();
+    scores[i] += gain;
+    let newGain = Math.min(b[i], 100 - scores[i]);
+    if (newGain > 0) pq.enqueue([newGain, i]);
+}
+
+const result = scores.reduce((a, c) => a + c, 0);
+console.log(result);
