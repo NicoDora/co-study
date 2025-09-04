@@ -17,8 +17,7 @@ for (let i = 0; i < k; i++) {
   count[type]++;
 }
 
-let max = 0;
-if (count[c] === 0) max++;
+let max = typeCount + (count[c] === 0 ? 1 : 0);
 
 for (let i = 1; i < N; i++) {
   // N까지 돌면 반복되기 때문에 N-1까지 (원형)
