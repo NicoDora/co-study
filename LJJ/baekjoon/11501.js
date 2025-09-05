@@ -1,21 +1,32 @@
 const fs = require('fs');
-const filePath = process.platform === 'linux' ? '/dev/stdin' : 'input.txt';
-const input = fs.readFileSync(filePath, 'utf8').trim().split('\n');
+const filePath = process.platform === 'linux' ? '/dev/stdin' : 'LJJ/baekjoon/input.txt';
+const input = fs.readFileSync(filePath, 'utf8').trim().toString().split('\n');
+
+// 뒤에서 부터 순회
+// 1. 최대치보다 높거나 같으면 최대치 갱신
+// 2. 낮으면 이익 계산
 
 const T = +input[0];
 let line = 1;
+const result = [];
 
-for (let t = 0; t < T; t++) {
+for (let i = 0; i < T; i++) {
     const N = +input[line++];
-    const prices = input[line++].split(' ').map(BigInt);
+    const prices = input[line++].split(' ').map(Number);
 
-    let gain = 0n;
-    let maxPrice = 0n;
+    let totalGain = 0;
+    let maxPrice = 0;
 
-    for (let i = N - 1; i >= 0; i--) {
-        if (prices[i] > maxPrice) maxPrice = prices[i];
-        gain += maxPrice - prices[i];
+    for (let j = N - 1; j >= 0; j--) {
+        const currentPrice = prices[j];
+
+        if (currentPrice >= maxPrice) {
+            maxPrice = currentPrice;
+        } else {
+            totalGain += maxPrice - currentPrice;
+        }
     }
-
-    console.log(gain.toString());
+    result.push(totalGain);
 }
+
+console.log(result.join('\n'));
