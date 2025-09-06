@@ -23,3 +23,4 @@ for (let i = 1; i <= T; i++) {
 
   console.log(money);
 }
+//아 또 PR안내리고 푸쉬함
