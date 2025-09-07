@@ -1,5 +1,5 @@
-6 4
-3
-5
-6
-2
+4 5
+adaca
+da##b
+abb#b
+abbac
