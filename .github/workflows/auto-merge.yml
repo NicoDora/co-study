@@ -1,0 +1,33 @@
+name: Auto Merge Daily PRs
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # 매일 08:10분쯤 KST (UTC 23:00)
+  workflow_dispatch:
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto merge all open PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open"
+            });
+
+            for (const pr of pullRequests) {
+              try {
+                await github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  merge_method: "squash" // 필요에 따라 merge, rebase 가능
+                });
+                core.info(`✅ PR #${pr.number} merged`);
+              } catch (error) {
+                core.warning(`⚠️ Could not merge PR #${pr.number}: ${error.message}`);
+              }
+            }
