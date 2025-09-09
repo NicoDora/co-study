@@ -4,7 +4,7 @@ const filePath =
 const input = fs.readFileSync(filePath, 'utf8').trim().split('\n');
 
 const [N, M] = input[0].trim().split(' ').map(Number);
-
+//dddddd
 class Node {
   constructor() {
     this.children = new Map();
