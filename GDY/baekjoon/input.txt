@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 5 10
 baekjoononlinejudge
 startlink
@@ -14,3 +15,8 @@ cod
 online
 judge
 plus
+=======
+2 2
+00
+01
+>>>>>>> 6a6ae58c67cf52fc8ab4052db66ac2b2c2c1737e
