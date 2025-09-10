@@ -26,6 +26,7 @@ jobs:
                   pull_number: pr.number,
                   merge_method: "squash" // 필요에 따라 merge, rebase 가능
                 });
+                await new Promise((res) => setTimeout(res, 5000));
                 core.info(`✅ PR #${pr.number} merged`);
               } catch (error) {
                 core.warning(`⚠️ Could not merge PR #${pr.number}: ${error.message}`);
