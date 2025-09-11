@@ -33,11 +33,6 @@ class Queue {
       let remove = this.queue[this.front];
       delete this.queue[this.front++];
 
-      if (this.end === this.front) {
-        this.end = 0;
-        this.front = 0;
-      }
-
       return remove;
     }
   }
@@ -72,6 +67,7 @@ function main(forceA, forceB, locationN, locationM) {
         queue.enqueue([next, jump + 1]);
       }
     }
+    console.log(queue);
   }
 }
 
