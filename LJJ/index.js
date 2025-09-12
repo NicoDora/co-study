@@ -19,7 +19,6 @@ const PRESET = `const fs = require('fs');
 const filePath =
   process.platform === 'linux' ? '/dev/stdin' : 'LJJ/baekjoon/input.txt';
 const input = fs.readFileSync(filePath, 'utf8').trim().toString().split('\\n');
-
 /**
  * 문제 url: https://www.acmicpc.net/problem/${problemNumber}
  * 문제 이름: ${problemNameArr.join(' ')}
@@ -30,7 +29,6 @@ const input = fs.readFileSync(filePath, 'utf8').trim().toString().split('\\n');
  * 4단계 (디버깅 및 제출): 분
  */
 function main() {}
-
 main();
 `;
 
