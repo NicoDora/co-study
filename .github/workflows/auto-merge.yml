@@ -28,7 +28,7 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     pull_number: pr.number,
-                    merge_method: "squash"
+                    merge_method: "merge"
                   });
 
                   core.info(`✅ PR #${pr.number} merged`);
