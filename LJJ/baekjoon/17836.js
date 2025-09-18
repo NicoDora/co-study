@@ -65,14 +65,15 @@ function bfs() {
         continue;
       }
 
-      if (sword === 0) {
-        if (castle[newCol][newRow] === 0 && !visited[newCol][newRow]) {
-          visited[newCol][newRow] = true;
-          queue.enqueue([newCol, newRow, time + 1, 0]);
-        }
-      } else {
-        if (!visited[newCol][newRow]) {
-          visited[newCol][newRow] = true;
+      if (!visited[newCol][newRow][sword]) {
+        if (castle[newCol][newRow] === 0) {
+          visited[newCol][newRow][sword] = true;
+          queue.enqueue([newCol, newRow, time + 1, sword]);
+        } else if (castle[newCol][newRow] === 1 && sword === 1) {
+          visited[newCol][newRow][1] = true;
+          queue.enqueue([newCol, newRow, time + 1, 1]);
+        } else if (castle[newCol][newRow] === 2) {
+          visited[newCol][newRow][1] = true;
           queue.enqueue([newCol, newRow, time + 1, 1]);
         }
       }
