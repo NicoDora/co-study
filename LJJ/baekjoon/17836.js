@@ -33,8 +33,8 @@ class Queue {
 const [N, M, T] = input[0].split(' ').map(Number);
 const castle = input.slice(1).map((line) => line.split(' ').map(Number));
 
-const visited = Array.from({ length: N + 1 }, () =>
-  new Array(M + 1).fill(false)
+const visited = Array.from({ length: N }, () =>
+  Array.from({ length: M }, () => new Array(2).fill(false))
 );
 
 let move = 0;
